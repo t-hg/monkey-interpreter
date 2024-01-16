@@ -21,6 +21,10 @@ let calcs = fn(x, y) {
   let not = !x;
   let yes = true;
   let no = false;
+  
+  if (yes) {
+  } else {
+  }
 };
 
 calcs(five, ten);
@@ -105,6 +109,15 @@ calcs(five, ten);
 		{Type: TokenTypeAssign, Literal: "="},
 		{Type: TokenTypeFalse, Literal: "false"},
 		{Type: TokenTypeSemicolon, Literal: ";"},
+		{Type: TokenTypeIf, Literal: "if"},
+		{Type: TokenTypeLParen, Literal: "("},
+		{Type: TokenTypeIdentifier, Literal: "yes"},
+		{Type: TokenTypeRParen, Literal: ")"},
+		{Type: TokenTypeLBrace, Literal: "{"},
+		{Type: TokenTypeRBrace, Literal: "}"},
+		{Type: TokenTypeElse, Literal: "else"},
+		{Type: TokenTypeLBrace, Literal: "{"},
+		{Type: TokenTypeRBrace, Literal: "}"},
 		{Type: TokenTypeRBrace, Literal: "}"},
 		{Type: TokenTypeSemicolon, Literal: ";"},
 		{Type: TokenTypeIdentifier, Literal: "calcs"},
