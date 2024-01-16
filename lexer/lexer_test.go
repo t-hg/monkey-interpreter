@@ -28,6 +28,7 @@ let calcs = fn(x, y) {
 };
 
 calcs(five, ten);
+return 42;
 `
 
 	expectedTokens := []Token{
@@ -126,6 +127,9 @@ calcs(five, ten);
 		{Type: TokenTypeComma, Literal: ","},
 		{Type: TokenTypeIdentifier, Literal: "ten"},
 		{Type: TokenTypeRParen, Literal: ")"},
+		{Type: TokenTypeSemicolon, Literal: ";"},
+		{Type: TokenTypeReturn, Literal: "return"},
+		{Type: TokenTypeInteger, Literal: "42"},
 		{Type: TokenTypeSemicolon, Literal: ";"},
 		{Type: TokenTypeEOF, Literal: "\x00"},
 	}

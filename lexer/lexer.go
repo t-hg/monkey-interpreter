@@ -87,6 +87,8 @@ func (lexer *Lexer) NextToken() Token {
 			return Token{Type: TokenTypeIf, Literal: literal}
 		case "else":
 			return Token{Type: TokenTypeElse, Literal: literal}
+		case "return":
+			return Token{Type: TokenTypeReturn, Literal: literal}
 		default:
 			return Token{Type: TokenTypeIdentifier, Literal: literal}
 		}

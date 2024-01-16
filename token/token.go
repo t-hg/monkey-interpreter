@@ -29,6 +29,7 @@ const (
 	TokenTypeFalse       TokenType = "FALSE"
 	TokenTypeIf          TokenType = "IF"
 	TokenTypeElse        TokenType = "ELSE"
+	TokenTypeReturn      TokenType = "RETURN"
 )
 
 type Token struct {
