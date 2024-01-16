@@ -28,6 +28,9 @@ func (lexer *Lexer) NextToken() Token {
 	case "+":
     lexer.nextChar()
 		return Token{Type: TokenTypePlus, Literal: "+"}
+	case "-":
+    lexer.nextChar()
+		return Token{Type: TokenTypeMinus, Literal: "-"}
 	case ",":
     lexer.nextChar()
 		return Token{Type: TokenTypeComma, Literal: ","}

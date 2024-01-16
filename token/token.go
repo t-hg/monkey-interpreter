@@ -11,6 +11,7 @@ const (
 	TokenTypeInteger    TokenType = "INT"
 	TokenTypeAssign     TokenType = "ASSIGN"
 	TokenTypePlus       TokenType = "PLUS"
+	TokenTypeMinus      TokenType = "MINUS"
 	TokenTypeComma      TokenType = "COMMA"
 	TokenTypeSemicolon  TokenType = "SEMICOLON"
 	TokenTypeLParen     TokenType = "LPAREN"

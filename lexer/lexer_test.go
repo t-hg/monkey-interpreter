@@ -7,11 +7,16 @@ import (
 )
 
 func TestNextToken(t *testing.T) {
-	input := `let five = 5;
-
+	input := `
+let five = 5;
 let ten = 10;
+
 let add = fn(x, y) {
   x + y;
+};
+
+let sub = fn(x, y) {
+  x - y;
 };
 
 let result = add(five, ten);
@@ -23,11 +28,13 @@ let result = add(five, ten);
 		{Type: TokenTypeAssign, Literal: "="},
 		{Type: TokenTypeInteger, Literal: "5"},
 		{Type: TokenTypeSemicolon, Literal: ";"},
+
 		{Type: TokenTypeLet, Literal: "let"},
 		{Type: TokenTypeIdentifier, Literal: "ten"},
 		{Type: TokenTypeAssign, Literal: "="},
 		{Type: TokenTypeInteger, Literal: "10"},
 		{Type: TokenTypeSemicolon, Literal: ";"},
+
 		{Type: TokenTypeLet, Literal: "let"},
 		{Type: TokenTypeIdentifier, Literal: "add"},
 		{Type: TokenTypeAssign, Literal: "="},
@@ -44,6 +51,24 @@ let result = add(five, ten);
 		{Type: TokenTypeSemicolon, Literal: ";"},
 		{Type: TokenTypeRBrace, Literal: "}"},
 		{Type: TokenTypeSemicolon, Literal: ";"},
+
+		{Type: TokenTypeLet, Literal: "let"},
+		{Type: TokenTypeIdentifier, Literal: "sub"},
+		{Type: TokenTypeAssign, Literal: "="},
+		{Type: TokenTypeFunction, Literal: "fn"},
+		{Type: TokenTypeLParen, Literal: "("},
+		{Type: TokenTypeIdentifier, Literal: "x"},
+		{Type: TokenTypeComma, Literal: ","},
+		{Type: TokenTypeIdentifier, Literal: "y"},
+		{Type: TokenTypeRParen, Literal: ")"},
+		{Type: TokenTypeLBrace, Literal: "{"},
+		{Type: TokenTypeIdentifier, Literal: "x"},
+		{Type: TokenTypeMinus, Literal: "-"},
+		{Type: TokenTypeIdentifier, Literal: "y"},
+		{Type: TokenTypeSemicolon, Literal: ";"},
+		{Type: TokenTypeRBrace, Literal: "}"},
+		{Type: TokenTypeSemicolon, Literal: ";"},
+
 		{Type: TokenTypeLet, Literal: "let"},
 		{Type: TokenTypeIdentifier, Literal: "result"},
 		{Type: TokenTypeAssign, Literal: "="},
