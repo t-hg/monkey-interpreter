@@ -13,6 +13,7 @@ const (
 	TokenTypePlus       TokenType = "PLUS"
 	TokenTypeMinus      TokenType = "MINUS"
 	TokenTypeAsterisk   TokenType = "ASTERISK"
+	TokenTypeSlash      TokenType = "SLASH"
 	TokenTypeComma      TokenType = "COMMA"
 	TokenTypeSemicolon  TokenType = "SEMICOLON"
 	TokenTypeLParen     TokenType = "LPAREN"

@@ -15,6 +15,7 @@ let calcs = fn(x, y) {
   let sum = x + y;
   let sub = x - y;
   let mul = x * y;
+  let div = x / y;
 };
 
 calcs(five, ten);
@@ -60,6 +61,13 @@ calcs(five, ten);
 		{Type: TokenTypeAssign, Literal: "="},
 		{Type: TokenTypeIdentifier, Literal: "x"},
 		{Type: TokenTypeAsterisk, Literal: "*"},
+		{Type: TokenTypeIdentifier, Literal: "y"},
+		{Type: TokenTypeSemicolon, Literal: ";"},
+		{Type: TokenTypeLet, Literal: "let"},
+		{Type: TokenTypeIdentifier, Literal: "div"},
+		{Type: TokenTypeAssign, Literal: "="},
+		{Type: TokenTypeIdentifier, Literal: "x"},
+		{Type: TokenTypeSlash, Literal: "/"},
 		{Type: TokenTypeIdentifier, Literal: "y"},
 		{Type: TokenTypeSemicolon, Literal: ";"},
 		{Type: TokenTypeRBrace, Literal: "}"},

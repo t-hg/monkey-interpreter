@@ -34,6 +34,9 @@ func (lexer *Lexer) NextToken() Token {
 	case "*":
     lexer.nextChar()
 		return Token{Type: TokenTypeAsterisk, Literal: "*"}
+	case "/":
+    lexer.nextChar()
+		return Token{Type: TokenTypeSlash, Literal: "/"}
 	case ",":
     lexer.nextChar()
 		return Token{Type: TokenTypeComma, Literal: ","}
