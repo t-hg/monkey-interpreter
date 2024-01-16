@@ -19,6 +19,8 @@ let calcs = fn(x, y) {
   let lt = x < y;
   let gt = x > y;
   let not = !x;
+  let yes = true;
+  let no = false;
 };
 
 calcs(five, ten);
@@ -92,6 +94,16 @@ calcs(five, ten);
 		{Type: TokenTypeAssign, Literal: "="},
 		{Type: TokenTypeBang, Literal: "!"},
 		{Type: TokenTypeIdentifier, Literal: "x"},
+		{Type: TokenTypeSemicolon, Literal: ";"},
+		{Type: TokenTypeLet, Literal: "let"},
+		{Type: TokenTypeIdentifier, Literal: "yes"},
+		{Type: TokenTypeAssign, Literal: "="},
+		{Type: TokenTypeTrue, Literal: "true"},
+		{Type: TokenTypeSemicolon, Literal: ";"},
+		{Type: TokenTypeLet, Literal: "let"},
+		{Type: TokenTypeIdentifier, Literal: "no"},
+		{Type: TokenTypeAssign, Literal: "="},
+		{Type: TokenTypeFalse, Literal: "false"},
 		{Type: TokenTypeSemicolon, Literal: ";"},
 		{Type: TokenTypeRBrace, Literal: "}"},
 		{Type: TokenTypeSemicolon, Literal: ";"},

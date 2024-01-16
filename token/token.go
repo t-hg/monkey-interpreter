@@ -25,6 +25,8 @@ const (
 	TokenTypeRBrace      TokenType = "RBRACE"
 	TokenTypeFunction    TokenType = "FUNC"
 	TokenTypeLet         TokenType = "LET"
+	TokenTypeTrue        TokenType = "TRUE"
+	TokenTypeFalse       TokenType = "FALSE"
 )
 
 type Token struct {
