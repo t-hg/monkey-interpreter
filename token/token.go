@@ -14,6 +14,8 @@ const (
 	TokenTypeMinus      TokenType = "MINUS"
 	TokenTypeAsterisk   TokenType = "ASTERISK"
 	TokenTypeSlash      TokenType = "SLASH"
+	TokenTypeLessThan         TokenType = "LT"
+	TokenTypeGreaterThan         TokenType = "GT"
 	TokenTypeComma      TokenType = "COMMA"
 	TokenTypeSemicolon  TokenType = "SEMICOLON"
 	TokenTypeLParen     TokenType = "LPAREN"

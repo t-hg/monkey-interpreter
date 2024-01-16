@@ -16,6 +16,8 @@ let calcs = fn(x, y) {
   let sub = x - y;
   let mul = x * y;
   let div = x / y;
+  let lt = x < y;
+  let gt = x > y;
 };
 
 calcs(five, ten);
@@ -68,6 +70,20 @@ calcs(five, ten);
 		{Type: TokenTypeAssign, Literal: "="},
 		{Type: TokenTypeIdentifier, Literal: "x"},
 		{Type: TokenTypeSlash, Literal: "/"},
+		{Type: TokenTypeIdentifier, Literal: "y"},
+		{Type: TokenTypeSemicolon, Literal: ";"},
+		{Type: TokenTypeLet, Literal: "let"},
+		{Type: TokenTypeIdentifier, Literal: "lt"},
+		{Type: TokenTypeAssign, Literal: "="},
+		{Type: TokenTypeIdentifier, Literal: "x"},
+		{Type: TokenTypeLessThan, Literal: "<"},
+		{Type: TokenTypeIdentifier, Literal: "y"},
+		{Type: TokenTypeSemicolon, Literal: ";"},
+		{Type: TokenTypeLet, Literal: "let"},
+		{Type: TokenTypeIdentifier, Literal: "gt"},
+		{Type: TokenTypeAssign, Literal: "="},
+		{Type: TokenTypeIdentifier, Literal: "x"},
+		{Type: TokenTypeGreaterThan, Literal: ">"},
 		{Type: TokenTypeIdentifier, Literal: "y"},
 		{Type: TokenTypeSemicolon, Literal: ";"},
 		{Type: TokenTypeRBrace, Literal: "}"},
