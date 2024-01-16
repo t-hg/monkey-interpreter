@@ -12,6 +12,7 @@ const (
 	TokenTypeAssign     TokenType = "ASSIGN"
 	TokenTypePlus       TokenType = "PLUS"
 	TokenTypeMinus      TokenType = "MINUS"
+	TokenTypeAsterisk   TokenType = "ASTERISK"
 	TokenTypeComma      TokenType = "COMMA"
 	TokenTypeSemicolon  TokenType = "SEMICOLON"
 	TokenTypeLParen     TokenType = "LPAREN"
