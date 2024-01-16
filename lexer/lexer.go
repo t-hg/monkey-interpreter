@@ -43,6 +43,9 @@ func (lexer *Lexer) NextToken() Token {
 	case ">":
     lexer.nextChar()
 		return Token{Type: TokenTypeGreaterThan, Literal: ">"}
+	case "!":
+    lexer.nextChar()
+		return Token{Type: TokenTypeBang, Literal: "!"}
 	case ",":
     lexer.nextChar()
 		return Token{Type: TokenTypeComma, Literal: ","}

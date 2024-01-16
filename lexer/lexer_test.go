@@ -18,6 +18,7 @@ let calcs = fn(x, y) {
   let div = x / y;
   let lt = x < y;
   let gt = x > y;
+  let not = !x;
 };
 
 calcs(five, ten);
@@ -85,6 +86,12 @@ calcs(five, ten);
 		{Type: TokenTypeIdentifier, Literal: "x"},
 		{Type: TokenTypeGreaterThan, Literal: ">"},
 		{Type: TokenTypeIdentifier, Literal: "y"},
+		{Type: TokenTypeSemicolon, Literal: ";"},
+		{Type: TokenTypeLet, Literal: "let"},
+		{Type: TokenTypeIdentifier, Literal: "not"},
+		{Type: TokenTypeAssign, Literal: "="},
+		{Type: TokenTypeBang, Literal: "!"},
+		{Type: TokenTypeIdentifier, Literal: "x"},
 		{Type: TokenTypeSemicolon, Literal: ";"},
 		{Type: TokenTypeRBrace, Literal: "}"},
 		{Type: TokenTypeSemicolon, Literal: ";"},
