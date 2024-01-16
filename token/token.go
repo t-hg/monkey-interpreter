@@ -1,25 +1,31 @@
 package token
 
+import "fmt"
+
 type TokenType string
 
 const (
-	ILLEGAL   TokenType = "ILLEGAL"
-	EOF       TokenType = "EOF"
-	IDENT     TokenType = "IDENT"
-	INT       TokenType = "INT"
-	ASSIGN    TokenType = "="
-	PLUS      TokenType = "+"
-	COMMA     TokenType = ","
-	SEMICOLON TokenType = ";"
-	LPAREN    TokenType = "("
-	RPAREN    TokenType = ")"
-	LBRACE    TokenType = "{"
-	RBRACE    TokenType = "}"
-	FUNCTION  TokenType = "FUNCTION"
-	LET       TokenType = "LET"
+	TokenTypeIllegal    TokenType = "ILLEGAL"
+	TokenTypeEOF        TokenType = "EOF"
+	TokenTypeIdentifier TokenType = "IDENT"
+	TokenTypeInteger    TokenType = "INT"
+	TokenTypeAssign     TokenType = "ASSIGN"
+	TokenTypePlus       TokenType = "PLUS"
+	TokenTypeComma      TokenType = "COMMA"
+	TokenTypeSemicolon  TokenType = "SEMICOLON"
+	TokenTypeLParen     TokenType = "LPAREN"
+	TokenTypeRParen     TokenType = "RPAREN"
+	TokenTypeLBrace     TokenType = "LBRACE"
+	TokenTypeRBrace     TokenType = "RBRACE"
+	TokenTypeFunction   TokenType = "FUNC"
+	TokenTypeLet        TokenType = "LET"
 )
 
 type Token struct {
 	Type    TokenType
 	Literal string
+}
+
+func (token Token) String() string {
+	return fmt.Sprintf("{%s:\"%s\"}", token.Type, token.Literal)
 }
