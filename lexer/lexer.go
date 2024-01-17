@@ -22,9 +22,6 @@ func (lexer *Lexer) NextToken() Token {
 	lexer.skipWhitespace()
 
 	switch lexer.char {
-	case "=":
-    lexer.nextChar()
-		return Token{Type: TokenTypeAssign, Literal: "="}
 	case "+":
     lexer.nextChar()
 		return Token{Type: TokenTypePlus, Literal: "+"}
@@ -43,9 +40,6 @@ func (lexer *Lexer) NextToken() Token {
 	case ">":
     lexer.nextChar()
 		return Token{Type: TokenTypeGreaterThan, Literal: ">"}
-	case "!":
-    lexer.nextChar()
-		return Token{Type: TokenTypeBang, Literal: "!"}
 	case ",":
     lexer.nextChar()
 		return Token{Type: TokenTypeComma, Literal: ","}
@@ -54,19 +48,38 @@ func (lexer *Lexer) NextToken() Token {
 		return Token{Type: TokenTypeSemicolon, Literal: ";"}
 	case "(":
     lexer.nextChar()
-		return Token{Type: TokenTypeLParen, Literal: "("}
+		return Token{Type: TokenTypeLeftParen, Literal: "("}
 	case ")":
     lexer.nextChar()
-		return Token{Type: TokenTypeRParen, Literal: ")"}
+		return Token{Type: TokenTypeRightParen, Literal: ")"}
 	case "{":
     lexer.nextChar()
-		return Token{Type: TokenTypeLBrace, Literal: "{"}
+		return Token{Type: TokenTypeLeftBrace, Literal: "{"}
 	case "}":
     lexer.nextChar()
-		return Token{Type: TokenTypeRBrace, Literal: "}"}
+		return Token{Type: TokenTypeRightBrace, Literal: "}"}
 	case "\x00":
 		return Token{Type: TokenTypeEOF, Literal: "\x00"}
 	}
+
+  if isMaybeTwoCharOperator(lexer.char) {
+    switch lexer.char {
+    case "=":
+      lexer.nextChar()
+      if (lexer.char == "=") {
+        lexer.nextChar()
+        return Token{Type: TokenTypeEquals, Literal: "=="}
+      }
+      return Token{Type: TokenTypeAssign, Literal: "="}
+    case "!":
+      lexer.nextChar()
+      if (lexer.char == "=") {
+        lexer.nextChar()
+        return Token{Type: TokenTypeNotEquals, Literal: "!="}
+      }
+      return Token{Type: TokenTypeBang, Literal: "!"}
+    }
+  }
 
 	if isLetter(lexer.char) {
 		literal := ""
@@ -131,4 +144,8 @@ func isLetter(char string) bool {
 
 func isDigit(char string) bool {
 	return char[0] >= 48 && char[0] <= 57
+}
+
+func isMaybeTwoCharOperator(char string) bool {
+  return char == "=" || char == "!"
 }
