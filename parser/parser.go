@@ -49,6 +49,8 @@ func (parser *Parser) Parse() (*Program, error) {
 		switch parser.token.Type {
 		case TokenTypeLet:
 			err = parser.parseLetStatement()
+    case TokenTypeReturn:
+      err = parser.parseReturnStatement()
 		default:
 			err = newParseError("Unexpected token '%s'", parser.token)
 		}
@@ -76,7 +78,7 @@ func (parser *Parser) expectToken(tokenType TokenType) error {
 }
 
 func (parser *Parser) parseLetStatement() error {
-	stmt := &LetStatement{
+	stmt := LetStatement{
 		Literal: parser.token.Literal,
 	}
 	parser.nextToken()
@@ -97,4 +99,17 @@ func (parser *Parser) parseLetStatement() error {
 	parser.nextToken()
 	parser.appendStatement(stmt)
 	return nil
+}
+
+func (parser *Parser) parseReturnStatement() error {
+	stmt := ReturnStatement{
+		Literal: parser.token.Literal,
+	}
+	// TODO parse expression
+	for parser.token.Type != TokenTypeSemicolon {
+		parser.nextToken()
+	}
+	parser.nextToken()
+	parser.appendStatement(stmt)
+  return nil
 }
