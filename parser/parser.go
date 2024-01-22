@@ -77,3 +77,39 @@ func (parser *Parser) expectToken(tokenType TokenType) error {
 	return nil
 }
 
+func (parser *Parser) parseLetStatement() error {
+	stmt := LetStatement{
+		Literal: parser.token.Literal,
+	}
+	parser.nextToken()
+	if err := parser.expectToken(TokenTypeIdentifier); err != nil {
+		return err
+	}
+	stmt.Identifier = Identifier{
+    Literal: parser.token.Literal,
+	}
+	parser.nextToken()
+	if err := parser.expectToken(TokenTypeAssign); err != nil {
+		return err
+	}
+	// TODO parse expression
+	for parser.token.Type != TokenTypeSemicolon {
+		parser.nextToken()
+	}
+	parser.nextToken()
+	parser.appendStatement(stmt)
+	return nil
+}
+
+func (parser *Parser) parseReturnStatement() error {
+	stmt := ReturnStatement{
+		Literal: parser.token.Literal,
+	}
+	// TODO parse expression
+	for parser.token.Type != TokenTypeSemicolon {
+		parser.nextToken()
+	}
+	parser.nextToken()
+	parser.appendStatement(stmt)
+  return nil
+}
