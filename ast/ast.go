@@ -26,12 +26,15 @@ type Identifier struct {
 	Literal string
 }
 
+func (identifier Identifier) isExpression() bool {
+  return true
+}
+
 func (identifier Identifier) String() string {
   return identifier.Literal
 }
 
 type LetStatement struct {
-	Literal    string
 	Identifier Identifier
 	Expression Expression
 }
@@ -41,11 +44,10 @@ func (stmt LetStatement) isStatement() bool {
 }
 
 func (stmt LetStatement) String() string {
-  return fmt.Sprintf("%s %s = %s;", stmt.Literal, stmt.Identifier, stmt.Expression)
+  return fmt.Sprintf("let %s = %s;", stmt.Identifier, stmt.Expression)
 }
 
 type ReturnStatement struct {
-  Literal string
   Expression Expression
 }
 
@@ -54,5 +56,20 @@ func (stmt ReturnStatement) isStatement() bool {
 }
 
 func (stmt ReturnStatement) String() string {
-  return fmt.Sprintf("%s %s", stmt.Literal, stmt.Expression)
+  return fmt.Sprintf("return %s", stmt.Expression)
+}
+
+// A statement that contains out of a single expression
+// like:
+// monkey> 5 + 5;
+type ExpressionStatement struct {
+  Expression Expression
+}
+
+func (stmt ExpressionStatement) isStatement() bool {
+  return true
+}
+
+func (stmt ExpressionStatement) String() string {
+  return fmt.Sprintf("%s", stmt.Expression)
 }

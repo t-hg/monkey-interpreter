@@ -1,6 +1,7 @@
 package parser
 
 import (
+	"fmt"
 	"testing"
 
 	. "github.com/t-hg/monkey-interpreter/ast"
@@ -22,21 +23,18 @@ let foobar = 10;
 
 	stmts := []Statement{
 		LetStatement{
-			Literal: "let",
 			Identifier: Identifier{
 				Literal: "x",
 			},
       // TODO Expression
 		},
 		LetStatement{
-			Literal: "let",
 			Identifier: Identifier{
 				Literal: "y",
 			},
       // TODO Expression
 		},
 		LetStatement{
-			Literal: "let",
 			Identifier: Identifier{
 				Literal: "foobar",
 			},
@@ -44,7 +42,7 @@ let foobar = 10;
 		},
 	}
 
-	for index := 0; index < len(program.Statements); index++ {
+	for index := 0; index < len(stmts); index++ {
 		expected := stmts[index]
 		actual := program.Statements[index]
 		if expected.String() != actual.String() {
@@ -65,27 +63,52 @@ return add(10, 5);
 	if err != nil {
 		t.Fatal("parsing failed:", err)
 	}
-
+  
 	stmts := []Statement{
 		ReturnStatement{
-			Literal: "return",
       // TODO Expression
 		},
 		ReturnStatement{
-			Literal: "return",
       // TODO Expression
 		},
 		ReturnStatement{
-			Literal: "return",
       // TODO Expression
 		},
 	}
 
-	for index := 0; index < len(program.Statements); index++ {
+	for index := 0; index < len(stmts); index++ {
 		expected := stmts[index]
 		actual := program.Statements[index]
 		if expected.String() != actual.String() {
 			t.Errorf("Expected '%s', got '%s'", expected, actual)
 		}
 	}
+}
+
+func TestExpressionStatement(t * testing.T) {
+  input := "foobar;"
+	lexer := NewLexer(input)
+	parser := NewParser(lexer)
+	program, err := parser.Parse()
+	if err != nil {
+		t.Fatal("parsing failed:", err)
+	}
+
+	stmts := []Statement{
+		ExpressionStatement{
+      Expression: Identifier{
+        Literal: "foobar",
+      },
+		},
+	}
+
+	for index := 0; index < len(stmts); index++ {
+		expected := stmts[index]
+    fmt.Println(expected)
+		actual := program.Statements[index]
+		if expected.String() != actual.String() {
+			t.Errorf("Expected '%s', got '%s'", expected, actual)
+		}
+	}
+
 }
