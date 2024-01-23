@@ -1,6 +1,8 @@
 package parser
 
 import (
+	"strconv"
+
 	. "github.com/t-hg/monkey-interpreter/ast"
 	. "github.com/t-hg/monkey-interpreter/lexer"
 	. "github.com/t-hg/monkey-interpreter/token"
@@ -27,8 +29,8 @@ func NewParser(lexer *Lexer) *Parser {
     parsePrefixFns: make(map[TokenType]parsePrefixFn),
     parseInfixFns: make(map[TokenType]parseInfixFn),
 	}
-
   parser.registerPrefixParser(TokenTypeIdentifier, parser.parseIdentifier)
+  parser.registerPrefixParser(TokenTypeInteger, parser.parseInteger)
   return parser
 }
 
@@ -132,4 +134,18 @@ func (parser *Parser) parseIdentifier() (Expression, error) {
     parser.nextToken()
   }
   return identifier, nil
+}
+
+func (parser *Parser) parseInteger() (Expression, error) {
+  literal := parser.token.Literal
+  value, err := strconv.Atoi(literal)
+  if err != nil {
+    return nil, newParseError("Could not parse literal to integer: %s", literal)
+  }
+  integer := Integer{Value: value}
+  parser.nextToken()
+  if parser.token.Type == TokenTypeSemicolon {
+    parser.nextToken()
+  }
+  return integer, nil
 }

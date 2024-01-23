@@ -86,7 +86,10 @@ return add(10, 5);
 }
 
 func TestExpressionStatement(t * testing.T) {
-  input := "foobar;"
+  input := `
+foobar;
+5;
+`
 	lexer := NewLexer(input)
 	parser := NewParser(lexer)
 	program, err := parser.Parse()
@@ -100,6 +103,11 @@ func TestExpressionStatement(t * testing.T) {
         Literal: "foobar",
       },
 		},
+    ExpressionStatement{
+      Expression: Integer{
+        Value: 5,
+      },
+    },
 	}
 
 	for index := 0; index < len(stmts); index++ {
@@ -110,5 +118,5 @@ func TestExpressionStatement(t * testing.T) {
 			t.Errorf("Expected '%s', got '%s'", expected, actual)
 		}
 	}
-
 }
+

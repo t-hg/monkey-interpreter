@@ -31,7 +31,19 @@ func (identifier Identifier) isExpression() bool {
 }
 
 func (identifier Identifier) String() string {
-  return identifier.Literal
+  return fmt.Sprintf("%s;", identifier.Literal)
+}
+
+type Integer struct {
+  Value int
+}
+
+func (integer Integer) isExpression() bool {
+  return true
+}
+
+func (integer Integer) String() string {
+  return fmt.Sprintf("%d;", integer.Value)
 }
 
 type LetStatement struct {
