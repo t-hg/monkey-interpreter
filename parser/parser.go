@@ -29,8 +29,10 @@ func NewParser(lexer *Lexer) *Parser {
     parsePrefixFns: make(map[TokenType]parsePrefixFn),
     parseInfixFns: make(map[TokenType]parseInfixFn),
 	}
-  parser.registerPrefixParser(TokenTypeIdentifier, parser.parseIdentifier)
-  parser.registerPrefixParser(TokenTypeInteger, parser.parseInteger)
+  parser.registerPrefixParser(TokenTypeIdentifier, parser.parseIdentifierExpression)
+  parser.registerPrefixParser(TokenTypeInteger, parser.parseIntegerExpression)
+  parser.registerPrefixParser(TokenTypeMinus, parser.parsePrefixExpression)
+  parser.registerPrefixParser(TokenTypeBang, parser.parsePrefixExpression)
   return parser
 }
 
@@ -80,7 +82,7 @@ func (parser *Parser) parseLetStatement() error {
 	if err := parser.expectToken(TokenTypeIdentifier); err != nil {
 		return err
 	}
-	stmt.Identifier = Identifier{
+	stmt.Identifier = IdentifierExpression{
     Literal: parser.token.Literal,
 	}
 	parser.nextToken()
@@ -127,25 +129,40 @@ func (parser *Parser) parseExpression(precedence Precedence) (Expression, error)
   return parsePrefix()
 }
 
-func (parser *Parser) parseIdentifier() (Expression, error) {
-  identifier := Identifier{Literal: parser.token.Literal}
+func (parser *Parser) parseIdentifierExpression() (Expression, error) {
+  expr := IdentifierExpression{Literal: parser.token.Literal}
   parser.nextToken()
   if parser.token.Type == TokenTypeSemicolon {
     parser.nextToken()
   }
-  return identifier, nil
+  return expr, nil
 }
 
-func (parser *Parser) parseInteger() (Expression, error) {
+func (parser *Parser) parseIntegerExpression() (Expression, error) {
   literal := parser.token.Literal
   value, err := strconv.Atoi(literal)
   if err != nil {
     return nil, newParseError("Could not parse literal to integer: %s", literal)
   }
-  integer := Integer{Value: value}
+  expr := IntegerExpression{Value: value}
   parser.nextToken()
   if parser.token.Type == TokenTypeSemicolon {
     parser.nextToken()
   }
-  return integer, nil
+  return expr, nil
+}
+
+func (parser *Parser) parsePrefixExpression() (Expression, error) {
+  expr := PrefixExpression{}
+  expr.Operator = parser.token.Literal
+  parser.nextToken()
+  rightExpr, err := parser.parseExpression(PrecedenceLowest)
+  if err != nil {
+    return nil, err
+  }
+  expr.Right = rightExpr
+  if parser.token.Type == TokenTypeSemicolon {
+    parser.nextToken()
+  }
+  return expr, nil
 }

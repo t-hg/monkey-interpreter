@@ -22,32 +22,49 @@ type Program struct {
 	Statements []Statement
 }
 
-type Identifier struct {
+// Expressions
+
+type IdentifierExpression struct {
 	Literal string
 }
 
-func (identifier Identifier) isExpression() bool {
+func (expr IdentifierExpression) isExpression() bool {
   return true
 }
 
-func (identifier Identifier) String() string {
-  return fmt.Sprintf("%s;", identifier.Literal)
+func (expr IdentifierExpression) String() string {
+  return fmt.Sprintf("%s", expr.Literal)
 }
 
-type Integer struct {
+type IntegerExpression struct {
   Value int
 }
 
-func (integer Integer) isExpression() bool {
+func (expr IntegerExpression) isExpression() bool {
   return true
 }
 
-func (integer Integer) String() string {
-  return fmt.Sprintf("%d;", integer.Value)
+func (expr IntegerExpression) String() string {
+  return fmt.Sprintf("%d", expr.Value)
 }
 
+type PrefixExpression struct {
+  Operator string
+  Right Expression
+}
+
+func (expr PrefixExpression) isExpression() bool {
+  return true
+}
+
+func (expr PrefixExpression) String() string {
+  return fmt.Sprintf("(%s%s)", expr.Operator, expr.Right)
+}
+
+// Statements
+
 type LetStatement struct {
-	Identifier Identifier
+	Identifier IdentifierExpression
 	Expression Expression
 }
 
@@ -68,7 +85,7 @@ func (stmt ReturnStatement) isStatement() bool {
 }
 
 func (stmt ReturnStatement) String() string {
-  return fmt.Sprintf("return %s", stmt.Expression)
+  return fmt.Sprintf("return %s;", stmt.Expression)
 }
 
 // A statement that contains out of a single expression
@@ -83,5 +100,6 @@ func (stmt ExpressionStatement) isStatement() bool {
 }
 
 func (stmt ExpressionStatement) String() string {
-  return fmt.Sprintf("%s", stmt.Expression)
+  return fmt.Sprintf("%s;", stmt.Expression)
 }
+

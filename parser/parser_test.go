@@ -1,7 +1,6 @@
 package parser
 
 import (
-	"fmt"
 	"testing"
 
 	. "github.com/t-hg/monkey-interpreter/ast"
@@ -23,19 +22,19 @@ let foobar = 10;
 
 	stmts := []Statement{
 		LetStatement{
-			Identifier: Identifier{
+			Identifier: IdentifierExpression{
 				Literal: "x",
 			},
       // TODO Expression
 		},
 		LetStatement{
-			Identifier: Identifier{
+			Identifier: IdentifierExpression{
 				Literal: "y",
 			},
       // TODO Expression
 		},
 		LetStatement{
-			Identifier: Identifier{
+			Identifier: IdentifierExpression{
 				Literal: "foobar",
 			},
       // TODO Expression
@@ -87,8 +86,10 @@ return add(10, 5);
 
 func TestExpressionStatement(t * testing.T) {
   input := `
-foobar;
+foo;
 5;
+-42;
+!bar;
 `
 	lexer := NewLexer(input)
 	parser := NewParser(lexer)
@@ -99,20 +100,35 @@ foobar;
 
 	stmts := []Statement{
 		ExpressionStatement{
-      Expression: Identifier{
-        Literal: "foobar",
+      Expression: IdentifierExpression{
+        Literal: "foo",
       },
 		},
     ExpressionStatement{
-      Expression: Integer{
+      Expression: IntegerExpression{
         Value: 5,
+      },
+    },
+    ExpressionStatement{
+      Expression: PrefixExpression{
+        Operator: "-",
+        Right: IntegerExpression{
+          Value: 42,
+        },
+      },
+    },
+    ExpressionStatement{
+      Expression: PrefixExpression{
+        Operator: "!",
+        Right: IdentifierExpression{
+          Literal: "bar",
+        },
       },
     },
 	}
 
 	for index := 0; index < len(stmts); index++ {
 		expected := stmts[index]
-    fmt.Println(expected)
 		actual := program.Statements[index]
 		if expected.String() != actual.String() {
 			t.Errorf("Expected '%s', got '%s'", expected, actual)
